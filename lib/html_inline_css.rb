@@ -389,9 +389,9 @@ module InlineCssString
 			@html_without_skeleton 	= html.gsub(/<style>(.*?)\n\t\t<\/style>|<style>(.*?)<\/style>|<html>|<\/html>|<head>|<\/head>|<body>|<\/body>|<script>|<\/script>/,"")
 			@doc 					= Nokogiri::HTML::DocumentFragment.parse(html)
 			@doc_to 				= Nokogiri::HTML::DocumentFragment.parse(@html_without_skeleton)
-			get_all_class_and_ids
-			add_style_tag_to_html(@doc_to)
-			inline_css_from_style_tag(@doc)
+			self.get_all_class_and_ids
+			self.add_style_tag_to_html(@doc_to)
+			self.inline_css_from_style_tag(@doc)
 			return @doc_to.to_html
 		end
 
