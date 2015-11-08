@@ -29,7 +29,9 @@ html_with_inline_css = InlineCssString::CSS.inline_css(html)
 html_with_inline_css	=> "<div style='border:1px solid #e5e5e5;'> Foo Bar </div>"
 ```
 
+```ruby
 Be aware that the "InlineCssString::CSS.inline_css(string)" will remove all <html>,<head>,<style> and <body> tags.
+```
 
 ## Contributing
 
