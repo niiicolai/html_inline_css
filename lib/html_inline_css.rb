@@ -4,7 +4,7 @@ require "nokogiri"
 module InlineCssString
 	class CSS
 
-		def get_all_class_and_ids
+		def self.get_all_class_and_ids
 			@html_tags.each do |tag|
 				@doc_to.css("#{tag}").each do |y|
 					unless y.nil? 
@@ -23,7 +23,7 @@ module InlineCssString
 			end
 		end
 
-		def add_style_tag_to_html(html)
+		def self.add_style_tag_to_html(html)
 			@html_tags.each do |tag|
 				html.css("#{tag}").each do |x| 
 					unless x.nil? 
@@ -35,7 +35,7 @@ module InlineCssString
 			end
 		end
 
-		def add_style(tag, arr)
+		def self.add_style(tag, arr)
 			unless arr.nil?; 
 				@doc_to.css("#{tag}").each do |y|
 					unless y.nil? 
@@ -45,7 +45,7 @@ module InlineCssString
 			end
 		end
 
-		def add_style_by_id_or_class(id_or_class_name, arr, id_or_class)
+		def self.add_style_by_id_or_class(id_or_class_name, arr, id_or_class)
 			unless arr.nil?; 
 				if id_or_class == "class"
 					@html_tags.each do |tag|
@@ -67,7 +67,7 @@ module InlineCssString
 			end
 		end
 
-		def inline_css_from_style_tag(html)
+		def self.inline_css_from_style_tag(html)
 			
 			style_tags = html.search('style').map { |n| n.inner_text }
 
