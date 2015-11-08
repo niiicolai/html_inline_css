@@ -1,7 +1,6 @@
 # HtmlInlineCss
 
-This gem was created to inline css in html mails for Pustomer.com but can be used anywhere you want to inline css.
-
+This gem was created to inline css in html mails but can be used anywhere you want to inline css.
 Be aware that the gem not yet is ready for production. Feel free to fork and build upon it yourself.
 
 ## Installation

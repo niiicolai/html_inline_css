@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["niiicolai@gmail.com"]
 
   spec.summary       = %q{Inline CSS}
-  spec.description   = %q{A ruby script there can inline CSS on a string.}
+  spec.description   = %q{A ruby script that can inline CSS on a string with html.}
   spec.homepage      = "https://github.com/niiicolai/html_inline_css"
   spec.license       = "MIT"
 
@@ -29,4 +29,5 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.10"
   spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_development_dependency "nokogiri"
 end
