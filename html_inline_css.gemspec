@@ -6,11 +6,11 @@ require 'html_inline_css/version'
 Gem::Specification.new do |spec|
   spec.name          = "html_inline_css"
   spec.version       = HtmlInlineCss::VERSION
-  spec.authors       = ["Nicolai Andersen"]
+  spec.authors       = ["Nicolai Berg Andersen"]
   spec.email         = ["niiicolai@gmail.com"]
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
+  spec.summary       = %q{Inline CSS}
+  spec.description   = %q{A ruby script there can inline CSS on a string.}
   spec.homepage      = "TODO: Put your gem's website or public repo URL here."
   spec.license       = "MIT"
 
