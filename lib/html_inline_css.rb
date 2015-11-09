@@ -120,9 +120,9 @@ module InlineCssString
       style_tags.each do |tag|
         @html_tags.each do |html_tag|
           unless html_tag == "a" || html_tag == "b" || html_tag == "i" || html_tag == "u" || html_tag == "s" || html_tag == "q"
-            tag.scan(/#{Regexp.escape(html_tag)}(.*?){(.*?)}/).flatten.select{ |x| !x.nil?; add_style("#{html_tag}", x) }
+            tag.scan(/#{Regexp.escape(html_tag)}(.*?){(.*?)}/m).flatten.select{ |x| !x.nil?; add_style("#{html_tag}", x) }
           else
-            tag.scan(/#{Regexp.escape(html_tag)}{(.*?)}|u\s{(.*?)}/).flatten.select{ |x| !x.nil?; add_style("#{html_tag}", x) }
+            tag.scan(/#{Regexp.escape(html_tag)}{(.*?)}|u\s{(.*?)}/m).flatten.select{ |x| !x.nil?; add_style("#{html_tag}", x) }
           end	      
         end
         # CLASS
