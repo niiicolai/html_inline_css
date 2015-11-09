@@ -145,12 +145,12 @@ module InlineCssString
       @html_tags = ["div","span","b","a","i","abbr","acronym","address","applet","area","article","aside","bdi","big","blockquote","caption","center","cite","code","col","colgroup","datalist","dd","del","details","dfn","dialog","dir","dl","dt","em","footer","form","frame","frameset","h1","h2","h3","h4","h5","h6","hr","iframe","img","input","ins","kbd","keygen","label","legend","li","link","main","map","mark","menu","menuitem","meter","nav","object","ol","optgroup","option","output","p","param","pre","progress","q","rp","rt","ruby","s","samp","section","select","small","source","strike","strong","sub","summary","sup","table","tbody","td","textarea","tfoot","th","thead","time","tr","track","tt","u","ul","var","wbr"]
       @classes = Array.new
       @ids = Array.new
-      @html_without_skeleton = html.gsub(/<style>(.*?)\n\t\t<\/style>|<style>(.*?)<\/style>|<html>|<\/html>|<head>|<\/head>|<body>|<\/body>|<script>|<\/script>/m,"")
+      @html_without_skeleton = html.gsub(/<style>(.*?)\n\t\t<\/style>|<style>(.*?)<\/style>|<title>(.*?)<\/title>|<meta(.*?)>|<html>|<\/html>|<head>|<\/head>|<body>|<\/body>|<script>|<\/script>/m,"")
       @doc = Nokogiri::HTML::DocumentFragment.parse(html)
       @doc_to = Nokogiri::HTML::DocumentFragment.parse(@html_without_skeleton)
       self.get_all_class_and_ids
       self.add_style_tag_to_html(@doc_to)
-      #self.inline_css_with_class_and_html(@doc)
+      self.inline_css_with_class_and_html(@doc)
       self.inline_css_from_style_tag(@doc)
       return @doc_to.to_html
     end
