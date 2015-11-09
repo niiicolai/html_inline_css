@@ -37,9 +37,10 @@ module InlineCssString
 
     def self.add_style(tag, arr)
       unless arr.nil?; 
+      	no_newline_arr = arr.gsub(/\n/,"")
         @doc_to.css("#{tag}").each do |y|
           unless y.nil? 
-            y.to_s.scan(/style="([^"]*)"|style='([^"]*)'/).flatten.select{ |i| !i.nil?; unless i.nil?; y['style'] = "#{arr}#{i}" end }				
+            y.to_s.scan(/style="([^"]*)"|style='([^"]*)'/).flatten.select{ |i| !i.nil?; unless i.nil?; y['style'] = "#{no_newline_arr}#{i}" end }				
           end
         end
       end
@@ -47,11 +48,12 @@ module InlineCssString
 
     def self.add_style_by_id_or_class(id_or_class_name, arr, id_or_class)
       unless arr.nil?; 
+      	no_newline_arr = arr.gsub(/\n/,"")
         if id_or_class == "class"
           @html_tags.each do |tag|
             @doc_to.xpath("#{tag}[@class = '#{id_or_class_name}']").each do |y|
               unless y.nil? 
-                y.to_s.scan(/style="([^"]*)"|style='([^"]*)'/).flatten.select{ |i| !i.nil?; unless i.nil?; y['style'] = "#{arr}#{i}" end }				
+                y.to_s.scan(/style="([^"]*)"|style='([^"]*)'/).flatten.select{ |i| !i.nil?; unless i.nil?; y['style'] = "#{no_newline_arr}#{i}" end }				
               end
             end
           end
@@ -69,12 +71,13 @@ module InlineCssString
 
     def self.add_style_by_id_or_class_to_child(id_or_class_name, arr, id_or_class)
       unless arr.nil?; 
+      	no_newline_arr = arr.gsub(/\n/,"")
         if id_or_class == "class"
           @html_tags.each do |tag|
             @doc_to.xpath("#{tag}[@class = '#{id_or_class_name}']").each do |y|
               unless y.nil? 
                 y.xpath("#{tag}").each do |c|
-                  c.to_s.scan(/style="([^"]*)"|style='([^"]*)'/).flatten.select{ |i| !i.nil?; unless i.nil?; c['style'] = "#{arr}#{i}" end }				
+                  c.to_s.scan(/style="([^"]*)"|style='([^"]*)'/).flatten.select{ |i| !i.nil?; unless i.nil?; c['style'] = "#{no_newline_arr}#{i}" end }				
                 end
               end
             end
