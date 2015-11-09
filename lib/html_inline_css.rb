@@ -37,7 +37,7 @@ module InlineCssString
 
     def self.add_style(tag, arr)
       unless arr.nil?; 
-      	no_newline_arr = arr.gsub(/\n/,"")
+      	no_newline_arr = arr.gsub(/\n|\r/,"")
         @doc_to.css("#{tag}").each do |y|
           unless y.nil? 
             y.to_s.scan(/style="([^"]*)"|style='([^"]*)'/).flatten.select{ |i| !i.nil?; unless i.nil?; y['style'] = "#{no_newline_arr}#{i}" end }				
@@ -48,7 +48,7 @@ module InlineCssString
 
     def self.add_style_by_id_or_class(id_or_class_name, arr, id_or_class)
       unless arr.nil?; 
-      	no_newline_arr = arr.gsub(/\n/,"")
+      	no_newline_arr = arr.gsub(/\n|\r/,"")
         if id_or_class == "class"
           @html_tags.each do |tag|
             @doc_to.xpath("#{tag}[@class = '#{id_or_class_name}']").each do |y|
@@ -71,7 +71,7 @@ module InlineCssString
 
     def self.add_style_by_id_or_class_to_child(id_or_class_name, arr, id_or_class)
       unless arr.nil?; 
-      	no_newline_arr = arr.gsub(/\n/,"")
+      	no_newline_arr = arr.gsub(/\n|\r/,"")
         if id_or_class == "class"
           @html_tags.each do |tag|
             @doc_to.xpath("#{tag}[@class = '#{id_or_class_name}']").each do |y|
