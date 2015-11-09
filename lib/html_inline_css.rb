@@ -99,7 +99,7 @@ module InlineCssString
         # CLASS
         @classes.each do |css_class|
           @html_tags.each do |tags|
-            regex = /\.#{Regexp.escape(css_class)}\s#{Regexp.escape(tags)}\s{(.*?)}|\.#{Regexp.escape(css_class)}\s#{Regexp.escape(tags)}{(.*?)}/
+            regex = /\.#{Regexp.escape(css_class)}\s#{Regexp.escape(tags)}\s{(.*?)}|\.#{Regexp.escape(css_class)}\s#{Regexp.escape(tags)}{(.*?)}/m
             tag.scan(regex).flatten.select{ |x| !x.nil?; add_style_by_id_or_class_to_child(css_class, x, 'class'); }
             new_html = @doc.to_s; @doc = Nokogiri::HTML::DocumentFragment.parse(new_html.gsub(regex,""))
           end
@@ -107,7 +107,7 @@ module InlineCssString
         # ID
         @ids.each do |css_id|
           @html_tags.each do |tag|
-            regex = /\##{Regexp.escape(css_id)}\s#{Regexp.escape(tag)}\s{(.*?)}|\##{Regexp.escape(css_id)}\s#{Regexp.escape(tag)}{(.*?)}/
+            regex = /\##{Regexp.escape(css_id)}\s#{Regexp.escape(tag)}\s{(.*?)}|\##{Regexp.escape(css_id)}\s#{Regexp.escape(tag)}{(.*?)}/m
             tag.scan(regex).flatten.select{ |x| !x.nil?; add_style_by_id_or_class_to_child(css_id, x, 'id'); x.gsub("",""); }
             new_html = @doc.to_s; @doc = Nokogiri::HTML::DocumentFragment.parse(new_html.gsub(regex,""))
           end
@@ -127,12 +127,12 @@ module InlineCssString
         end
         # CLASS
         @classes.each do |css_class|
-          regex = /\.#{Regexp.escape(css_class)}\s{(.*?)}|\.#{Regexp.escape(css_class)}{(.*?)}/
+          regex = /\.#{Regexp.escape(css_class)}\s{(.*?)}|\.#{Regexp.escape(css_class)}{(.*?)}/m
           tag.scan(regex).flatten.select{ |x| !x.nil?; add_style_by_id_or_class(css_class, x, 'class'); }
         end
         # ID
         @ids.each do |css_id|
-          regex = /\##{Regexp.escape(css_id)}\s{(.*?)}|\##{Regexp.escape(css_id)}{(.*?)}/
+          regex = /\##{Regexp.escape(css_id)}\s{(.*?)}|\##{Regexp.escape(css_id)}{(.*?)}/m
           tag.scan(regex).flatten.select{ |x| !x.nil?; add_style_by_id_or_class(css_id, x, 'id') }
         end
       end
@@ -142,7 +142,7 @@ module InlineCssString
       @html_tags = ["div","span","b","a","i","abbr","acronym","address","applet","area","article","aside","bdi","big","blockquote","caption","center","cite","code","col","colgroup","datalist","dd","del","details","dfn","dialog","dir","dl","dt","em","footer","form","frame","frameset","h1","h2","h3","h4","h5","h6","hr","iframe","img","input","ins","kbd","keygen","label","legend","li","link","main","map","mark","menu","menuitem","meter","nav","object","ol","optgroup","option","output","p","param","pre","progress","q","rp","rt","ruby","s","samp","section","select","small","source","strike","strong","sub","summary","sup","table","tbody","td","textarea","tfoot","th","thead","time","tr","track","tt","u","ul","var","wbr"]
       @classes = Array.new
       @ids = Array.new
-      @html_without_skeleton = html.gsub(/<style>(.*?)\n\t\t<\/style>|<style>(.*?)<\/style>|<html>|<\/html>|<head>|<\/head>|<body>|<\/body>|<script>|<\/script>/,"")
+      @html_without_skeleton = html.gsub(/<style>(.*?)\n\t\t<\/style>|<style>(.*?)<\/style>|<html>|<\/html>|<head>|<\/head>|<body>|<\/body>|<script>|<\/script>/m,"")
       @doc = Nokogiri::HTML::DocumentFragment.parse(html)
       @doc_to = Nokogiri::HTML::DocumentFragment.parse(@html_without_skeleton)
       self.get_all_class_and_ids
