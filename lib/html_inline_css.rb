@@ -37,7 +37,7 @@ module InlineCssString
 
     def self.add_style(tag, arr)
       unless arr.nil?; 
-      	no_newline_arr = arr.gsub(/\n|\r|\t/,"")
+      	no_newline_arr = arr.gsub(/\n|\r|\t|(?<=;)\s+|(?<=")\s+/,"")
         @doc_to.css("#{tag}").each do |y|
           unless y.nil? 
             y.to_s.scan(/style="([^"]*)"|style='([^"]*)'/).flatten.select{ |i| !i.nil?; unless i.nil?; y['style'] = "#{no_newline_arr}#{i}" end }				
@@ -48,7 +48,7 @@ module InlineCssString
 
     def self.add_style_by_id_or_class(id_or_class_name, arr, id_or_class)
       unless arr.nil?; 
-      	no_newline_arr = arr.gsub(/\n|\r|\t/,"")
+      	no_newline_arr = arr.gsub(/\n|\r|\t|(?<=;)\s+|(?<=")\s+/,"")
         if id_or_class == "class"
           @html_tags.each do |tag|
             @doc_to.xpath("#{tag}[@class = '#{id_or_class_name}']").each do |y|
@@ -71,7 +71,7 @@ module InlineCssString
 
     def self.add_style_by_id_or_class_to_child(id_or_class_name, arr, id_or_class)
       unless arr.nil?; 
-      	no_newline_arr = arr.gsub(/\n|\r|\t/,"")
+      	no_newline_arr = arr.gsub(/\n|\r|\t|(?<=;)\s+|(?<=")\s+/,"")
         if id_or_class == "class"
           @html_tags.each do |tag|
             @doc_to.xpath("#{tag}[@class = '#{id_or_class_name}']").each do |y|
@@ -145,7 +145,7 @@ module InlineCssString
       @html_tags = ["div","span","b","a","i","abbr","acronym","address","applet","area","article","aside","bdi","big","blockquote","caption","center","cite","code","col","colgroup","datalist","dd","del","details","dfn","dialog","dir","dl","dt","em","footer","form","frame","frameset","h1","h2","h3","h4","h5","h6","hr","iframe","img","input","ins","kbd","keygen","label","legend","li","link","main","map","mark","menu","menuitem","meter","nav","object","ol","optgroup","option","output","p","param","pre","progress","q","rp","rt","ruby","s","samp","section","select","small","source","strike","strong","sub","summary","sup","table","tbody","td","textarea","tfoot","th","thead","time","tr","track","tt","u","ul","var","wbr"]
       @classes = Array.new
       @ids = Array.new
-      @html_without_skeleton = html.gsub(/<style>(.*?)\n\t\t<\/style>|<style>(.*?)<\/style>|<title>(.*?)<\/title>|<meta(.*?)>|<html>|<\/html>|<head>(.*?)<\/head>|<body>|<\/body>|<script>|<\/script>/m,"")
+      @html_without_skeleton = html.gsub(/<style>(.*?)<\/style>|<title>(.*?)<\/title>|<meta(.*?)>|<html>|<\/html>|<head>(.*?)<\/head>|<body>|<\/body>|<script>|<\/script>/m,"")
       @doc = Nokogiri::HTML::DocumentFragment.parse(html)
       @doc_to = Nokogiri::HTML::DocumentFragment.parse(@html_without_skeleton)
       self.get_all_class_and_ids
