@@ -122,7 +122,7 @@ module InlineCssString
       style_tags = html.search('style').map { |n| n.inner_text }
       style_tags.each do |tag|
         @html_tags.each do |html_tag|
-          unless html_tag == "a" || html_tag == "b" || html_tag == "i" || html_tag == "u" || html_tag == "s" || html_tag == "q"
+          unless html_tag == "a" || html_tag == "b" || html_tag == "i" || html_tag == "u" || html_tag == "s" || html_tag == "q" || html_tag == "p"
             tag.scan(/#{Regexp.escape(html_tag)}(.*?){(.*?)}/m).flatten.select{ |x| !x.nil?; add_style("#{html_tag}", x) }
           else
             tag.scan(/#{Regexp.escape(html_tag)}{(.*?)}|u\s{(.*?)}/m).flatten.select{ |x| !x.nil?; add_style("#{html_tag}", x) }
@@ -150,7 +150,7 @@ module InlineCssString
       @doc_to = Nokogiri::HTML::DocumentFragment.parse(@html_without_skeleton)
       self.get_all_class_and_ids
       self.add_style_tag_to_html(@doc_to)
-      self.inline_css_with_class_and_html(@doc)
+      #self.inline_css_with_class_and_html(@doc)
       self.inline_css_from_style_tag(@doc)
       return @doc_to.to_html
     end
